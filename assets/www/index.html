@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<!--HTML5 doctype-->
+ <html ng-app="phonecatApp"> 
+
+    <head>
+       
+        <title>SmartLabel</title>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <link rel="stylesheet" type="text/css" href="css/icons.css" />    
+ 		 <link rel="stylesheet" type="text/css" href="css/af.ui.css" title="default" />
+ 		  <link rel="stylesheet" type="text/css" href="css/animate.min.css" /> 
+ 		  <link rel="stylesheet" type="text/css" href="css/styles.css" /> 
+ 
+ 		   <script src="http://code.jquery.com/jquery-1.9.1.js"></script>  
+ 	
+  
+        <!--  end -->
+ 		 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
+ 		
+ 		 <script type="text/javascript" charset="utf-8" src="lib/jq.appframework.js"></script>
+    	<script type="text/javascript" charset="utf-8" src="lib/appframework.ui.min.js"></script>
+   		 <script type="text/javascript" charset="utf-8" src="lib/appframeworkos-min.js"></script>  
+   		<script src="js/modernizr.min.js"></script>
+         <script type="text/javascript" src="js/sketcher.min.js"></script>
+         <script type="text/javascript" src="js/trigonometry.min.js"></script>
+   		 <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+         <script type="text/javascript" src="js/main.js"></script>
+         <script type="text/javascript" src="js/bagpack.js"></script>
+         <script type="text/javascript" src="js/smartapi.js"></script>
+         <script type="text/javascript" src="js/ddlInkText.min.js"></script>
+         <script type="text/javascript" src="js/popover.js"></script>
+
+         <script type="text/javascript" src="js/smartSketch.js"></script>
+          <script type="text/javascript" src="js/mobile.min.js"></script> 
+          <script type="text/javascript" src="jscharts/jqplot.canvasTextRenderer.min.js"></script>
+          <script type="text/javascript" src="jscharts/jqplot.canvasAxisLabelRenderer.min.js"></script>
+          
+          <script type="text/javascript" src="jscharts/fusioncharts.js"></script> 
+          <!-- <script type="text/javascript" src="jscharts/FusionCharts.jQueryPlugin.js"></script>  -->
+          <script type="text/javascript" src="jscharts/themes/fusioncharts.theme.zune.js"></script>
+          
+         <script src="lib/kinect.min.js"></script> 
+         
+          <script type="text/javascript" defer="defer" src="js/drawcontrols.js"></script>
+          <script type="text/javascript" src="js/localstorage.js"></script>
+          <script type="text/javascript" src="js/stopwatch.js"></script>
+       <script type="text/javascript">
+        $.ui.useOSThemes = true;
+        $.ui.showBackButton = false;
+        app.initialize();
+        $.ui.manageHistory = false;
+        
+        
+       
+    </script>
+   <style>
+
+   
+   </style>
+</head>
+
+<body>
+
+<div id="container"></div>
+<div id="afui" class="test" >
+
+<!-- this is the splashscreen you see. -->
+<div id="splashscreen" class='ui-loader heavy'>
+    App Framework
+    <br>
+    <br> <span class='ui-icon ui-icon-loading spin'></span>
+
+    <h1>Starting app</h1>
+
+</div>
+
+<div id="header" style="background-image:url('img/header_bg.png');">
+    <!-- <a id='menubadge'  style="float:right;" onclick='af.ui.toggleSideMenu()' class='menuButton'></a>  -->
+</div>
+
+<div id="content" style="background-image:url(img/background.jpg);"  >
+
+<div  id='popupScore' class="panel" style='height:60px;width:100px;color:FFFFFF;' data-load='populatescore()' >
+<table>
+<tr><td><label id='maxscorelabel'  style='forecolor:FFF000'> MaxScore(3) </label></td>
+</tr>
+<tr>
+<td><input id='maxscoreinput' onkeypress='return isNumber(event)' onkeyup='return checkvalue(event)' value='4'>
+</input></td>
+</tr>
+</table>
+</div> 
+<!-- 
+<div  id='myPopup1'  style='height:360px;width330px;color:#000000;background-color:#000000;padding:0;margin:0;'>
+<table width='100%' >
+<tr>
+<td width='35%'> <span style='color: #FFFFFF;display: block;font-size:20px;left:40px;vertical-align: middle;position: absolute;text-decoration: none;'>Select Sticker</span>
+ </td>
+ <td  width='65%'><select id="stickerdropdown" size='3'></select>
+ </td>
+ </tr><tr style='height:20px;'></tr>
+  <tr>
+  <td  width='35%'> 
+  <span style='color: #FFFFFF;display: block;font-size:20px;left:40px;vertical-align: middle;position: absolute;text-decoration: none;'>Select Grade</span> 
+  </td>
+  <td  width='65%' ><select id="gradesdropdown" size='3' ></select></td></tr><tr style='height:20px;'></tr><tr><td colspan='2'><textarea id='inputbx' cols='25' rows='11'   placeholder='Type Feedback!' style='background-color:#FFFFFF;' overflow:'scroll'  onchange='updateFeedbackText();' >
+  </textarea></td></tr></table>
+  </div> 
+ -->
+<div  id='popupSPReport' class="panel" style='height:60px;width:100px;color:FFFFFF;'  >
+<table>
+<tr>
+<td></td>
+</tr>
+<tr>
+<td></td>
+</tr>
+</table>
+</div> 
+
+<div title="my backpack" id="login" class="panel" selected="true" data-load="setLogin" data-footer="home_footer">
+    <header>
+    </header>
+
+    <ul id="fileList" class="list">
+        <li class="txtlogin"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></li>
+        <li class="txtlogin">
+            <input id="txtUserName" type="text" placeholder="username" value="" class="txtlogin" />
+        </li>
+        <li class="txtlogin">
+            <input id="txtUserPassword" type="password" placeholder="password" value=""  class="txtlogin" />
+        </li>
+        <li class="txtlogin">
+            <input id="txtUserDomain" type="text" placeholder="domain" value=""  class="txtlogin"/>
+        </li>
+        <li class="txtlogin">
+            <div href="#">Help Signing In?</div>
+        </li>
+        <li class="txtlogin">
+            <div class="button" onclick="bagpackLogin();">log in</div>
+        </li>
+        <li class="txtlogin"><img src="img/knomadix-logo.png" alt="knomadix logo"/></li>
+    </ul>
+</div>
+
+<div title='Home' id="home" class="panel" data-load="homeloadedPanel" data-unload="unloadedPanel"
+     data-footer="home_footer">
+    <div class="grid">
+        <div class="col3"><span>&nbsp;</span></div>
+        <div class="col3">
+         <!--     <a href="#localFolder" class="button icon icon-streamline-suitcase-travel"><span class="spanbtn">Local Folder</span></a> -->
+            <a href="#backPack" class="button icon icon-book-read-streamline"><span class="spanbtn">BagPack</span></a>
+            <a href="#settings" class="button icon icon-settings-streamline-1"><span class="spanbtn">Settings</span></a>
+        </div>
+        <div class="col3"></div>
+    </div>
+   <!-- <a class="button" href="javascript:;" onclick='startOver();'>Start Over</a>  -->
+</div>
+
+<div title='Local Folder' id="localFolder" class="panel" data-load="lclFolderloadedPanel" data-unload="unloadedPanel"
+     data-footer="home_footer">
+    <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='backtobagPack()'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <!--<a href="#Home"><img src="img/localfolder.png" alt="home"/></a>-->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+
+    <p id="errorLoclMsg" style="display:none;">There is no file found. please load the file in order to start the
+        exercise.</p>
+      <div class="note-header">
+        <h1 class="headerpadding">local folder</h1>
+    </div>
+    <ul id="localFileList" class="list">
+       <li><a href="#main" onclick='getContents("map",this);'>Map World</a></li>
+        <li><a href="#main" onclick='getContents("heart",this);'>Heart</a></li>
+    </ul>
+</div>
+
+<div title='BackPack'  id="backPack"  data-load="backPackloadedPanel" data-unload="unloadedPanel"
+class="panel" data-footer="home_footer" ng-model="courseList" ng-controller="PhoneListCtrl">
+   
+
+    <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <!--<a href="#"><img src="img/home.png" alt="home"/></a>-->
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+           <!--'  <a href="#localFolder"><img src="img/localfolder.png" alt="home"/></a> -->
+          <!--   <a href="#chartContainer">2D Reports</a>
+             <a href="#chartContainer3D">3D Reports</a> -->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+            
+            <!--    <a href="#myPopup" data-rel="dialog" class="ui-btn ui-btn-inline ui-corner-all">Show Popup</a>
+      -->   </div>
+      
+    </header>
+   
+ <!-- <div  id="myPopup" data-dismissible="false" data-role="popup" data-footer="home_footer">
+  <p>This is a simple popup test.</p>
+  
+</div>-->
+    <ul class="list" ng-model="courseList">
+
+        <li ng-repeat="item in courseList">
+            <a href="#main">{{item.CourseName}}</a>
+        </li>
+    </ul>
+    <!-- <p id="errorMsg" style="display:none;">There is no file found. please load the file in order to start the exercise.</p> -->
+    <div class="note-header" style="display:none;">
+        <h1>
+            <span id="backpackTodaysMonth"></span><b><span id="backpackTodaysDate"></span></b>
+            today's work
+        </h1>
+    </div>
+    
+    
+
+    <ul id="courseList" class="list">
+        <!--   <li><a href="#main" onclick='getContents("map");' >Map World</a></li>
+         <li><a href="#main" onclick='getContents("heart");'>Heart</a></li> -->
+    </ul>
+ 
+</div>
+
+<div title='BackPackContentList' id="backPackContentList" class="panel" data-load="backPackCourseContPanel"
+     data-unload="unloadedPanel" data-footer="home_footer" ng-model="courseList" ng-controller="PhoneListCtrl">
+    <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='backtobagPack()'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo" id="headerCourseContent">
+         <!-- <img src="img/mybackpack_logo.png" alt="mybackpack logo"/>-->
+
+        </h1>
+        <div class="control-right">
+           <!--  <a href="#localFolder"><img src="img/localfolder.png" alt="home"/></a> -->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+
+    <!--class="list" <p id="errorMsg" style="display:none;">There is no file found. please load the file in order to start the exercise.</p> -->
+    <ul id="courseContentList" class="list"   >
+        <!--   <li><a href="#main" onclick='getContents("map");' >Map World</a></li>
+         <li><a href="#main" onclick='getContents("heart");'>Heart</a></li> -->
+    </ul>
+
+</div>
+
+<!--  New div for student list -->
+<div title='Student List' id="studentListforAContent" class="panel" data-load="studentlistPanel"
+     data-unload="unloadedPanel" data-footer="home_footer" ng-model="courseList" ng-controller="PhoneListCtrl">
+    <header>
+        <div class="control-left">
+           
+            <a href="#" onclick='backtoCourse()'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo" id="headerStudentList">
+        
+        </h1>
+        <div class="control-right">
+          <!--  <a href="#barchartContainer" onclick="barreportsloadedPanel"><img src="img/report.png" alt="report"/></a> -->
+          <!--   <a href="#localFolder"><img src="img/localfolder.png" alt="home"/></a> -->
+          <a onclick='barreportsloadedPanelinmain()'><img src="img/report.png" alt="report"/></a> 
+          <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+          <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+
+  
+    <ul id="studentList" class="list">
+       
+    </ul>
+
+</div>
+<!-- Student List  Changes end -->
+
+<!-- Smart Paper Activities -->
+<div title='SmartPaper' id="smartPaperPanel" class="panel" style="background-color:black;" data-load="smartFreeFLow" data-unload="unloadedSmartPaper" data-footer="smartPaper_footer" >
+    <header>
+
+        <div class="control-left" >
+            
+            <a href="#" onclick="saveSmartFreeFlowExercise('')"><img src="img/back.png" alt="home"/></a>
+            <a id="pencil" onclick="pencilSelect()"><img src="img/icon_pen.png" alt="menu"/></a>
+            <a id="eraser" onclick="smartEraser()"><img src="img/icon_eraser.png" alt="menu"/></a>
+             <a id="pencilSize" href="#"  onclick="onPencilSize();"><img  src="img/PenTipSize.png" /></a>
+             <a id="pencilColor" href="#"  onclick="onPencilColor();"><img  src="img/ColorWheel.png" /></a>
+             
+        </div>
+       
+       <div style="float:left; padding-left: 10%;margin-top:20px;" ><span  id="SPheaderCourseContent" style="width:auto;font-size:15px;"></span></div>
+       
+        <div class="control-right">
+             <div class="fr">
+        <!-- 
+         <a id="" class="bp-upload fl mr20" onclick="backtoStudentListfromSP('');"><img src="img/upload.png" alt="upload"/></a>
+    -->
+       <!--    <a id="" class="bp-upload fl mr20" onclick="saveSmartFreeFlowExercise('');"><img src="img/upload.png" alt="upload"/></a>  -->
+    <!-- Priya  <a id="" class="bp-upload fl mr20" onclick="saveLocalSmartFreeFlowExercise(false);"><img src="img/Save2.png" alt="save"/></a> -->
+          <a  id="ClickMe" onclick='ClickMe();' class="bp-upload fl mr20"  data-rel="popup"> <img src="img/Feedback.png" alt="Feedback"/></a>
+        </div>
+        </div>
+    </header>
+     
+     <!--  Priya changes begin -->
+
+     <div class="popColor" style="display:none;">
+
+      <div class="button" onclick="pencilColorPicker('black')" style="width:100%;height:10%;background-color:black;"></div>
+
+      <div class="button" onclick="pencilColorPicker('blue')" style="width:100%;height:10%;background-color:blue;"></div>
+
+      <div class="button" onclick="pencilColorPicker('red')" style="width:100%;height:10%;background-color:red;"></div>
+
+      <div class="button" onclick="pencilColorPicker('green')" style="width:100%;height:10%;background-color:green;"></div>
+
+      <div class="button" onclick="pencilColorPicker('yellow')" style="width:100%;height:10%;background-color:yellow;"></div>
+
+     </div>
+
+      <div class="popEraser" style="display:none;">
+
+      <div class="button" style="width:100%;height:33.3%;" onclick="pencilSizeChooser(3)">Small</div>
+
+      <div class="button" style="width:100%;height:33.3%;" onclick="pencilSizeChooser(4)">Medium</div>
+
+      <div class="button" style="width:100%;height:33.3%;" onclick="pencilSizeChooser(5)">Large</div>
+
+     </div>
+
+      <!--  Priya changes end -->
+    <div id="smartSketch">
+      <canvas id="topCanvas"></canvas>
+    </div>
+</div>
+<!-- End of Smart Paper Activities -->
+
+
+
+<!-- Reports -->
+<div  id="maintextReport" class="gray-bg panel" data-tab="navbar_mainreport" data-footer="barreport_footer">
+<header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='loadstudentlist()'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+</div>
+ 
+ <div  id="mainShuffleReport" class="gray-bg panel"  data-footer="barreport_footer" >
+ <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='loadstudentlist()'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <!--<a href="#Home"><img src="img/localfolder.png" alt="home"/></a>-->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+ </div>
+
+ <div  id="mainSelectReport" class="gray-bg panel"  data-footer="barreport_footer">
+ <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='loadstudentlist()'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <!--<a href="#Home"><img src="img/localfolder.png" alt="home"/></a>-->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+ </div>
+ 
+ <div  id="mainRandomReport" class="gray-bg panel"  data-footer="barreport_footer" >
+ <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='loadstudentlist()'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <!--<a href="#Home"><img src="img/localfolder.png" alt="home"/></a>-->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+ </div>
+ 
+ <div id="barchartContainer_sp" data-footer="barspreport_footer">
+ <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='loadstudentlist();'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <!--<a href="#Home"><img src="img/localfolder.png" alt="home"/></a>-->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+</div>
+
+ <div id="barchartContainer_sptop" data-footer="barspreport_footer">
+ <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='loadstudentlist();'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <!--<a href="#Home"><img src="img/localfolder.png" alt="home"/></a>-->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+</div>
+
+ <div id="barchartContainer_spbottom" data-footer="barspreport_footer">
+ <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='loadstudentlist();'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <!--<a href="#Home"><img src="img/localfolder.png" alt="home"/></a>-->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+</div>
+
+ <div id="chartContainer" class="panel" data-load="reportsloadedPanel" data-footer="home_footer">
+ <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='backtobagPack()'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <!--<a href="#Home"><img src="img/localfolder.png" alt="home"/></a>-->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+
+    </header>
+
+</div>
+
+<div id="barchartContainer" data-footer="home_footer">
+ <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='loadstudentlist();'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <!--<a href="#Home"><img src="img/localfolder.png" alt="home"/></a>-->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+</div>
+ 
+ <div id="chartContainer3D" class="panel" data-load="reportsloadedPanel3D" data-footer="home_footer">
+ <header>
+        <div class="control-left">
+            <!--<a href="#"><img src="img/menu.png" alt="menu"/></a>-->
+            <a href="#" onclick='backtobagPack()'><img src="img/back.png" alt="home"/></a>
+        </div>
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+        <div class="control-right">
+            <!--<a href="#Home"><img src="img/localfolder.png" alt="home"/></a>-->
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+            <a href="#login" onclick='logOut()'><img src="img/logout.png" alt="logout"/></a>
+        </div>
+    </header>
+</div>
+
+<!--  end reports -->
+
+
+
+<div title='Type Answer' id="main" class="gray-bg panel" data-load="typeAnsloadedPanel" data-unload="unloadedTypeAns"
+     data-tab="navbar_main">
+    <header>
+         <h1 id="typeExerciseName"></h1>
+        <div class="control-left">
+       
+          <a id='menuBackBtn' onclick="saveExerciseonBack('type');"><img  src="img/back.png" alt="menu"/></a>
+        </div>
+        <div class="fl" id="textLeftHdrEditCtrl">
+          <a class="tries fl mr20">
+             <div class="noAttempts"> <span id="noAttempts"></span></div>
+          </a>
+           <a class="t-time fl">
+           &nbsp; &nbsp; &nbsp;   <span id="totalTime"></span>
+          </a> 
+         <!--  <a id="menuReset" class="bp-reset fl ml30" onclick="restCurrentPage('type');">
+            <img src="img/reset.png" alt="reset"/>
+          </a> -->
+        </div>
+        <div class="fr">
+          <a class="bp-qtotal fl" id="textRightHdrEditCtrl" >
+              <span id="typAnsResult"></span><span id="questTotal"></span>
+          </a>
+          
+         <!--  <a id="" class="bp-upload fl mr20" onclick="saveExercise('type');"><img src="img/upload.png" alt="upload"/></a>
+         -->    
+         <a  id="ClickMe" onclick='ClickMe();' class="bp-upload fl mr20"  data-rel="popup"> <img src="img/Feedback.png" alt="Feedback"/></a>
+        <!--   <a id="" class="bp-upload fl mr20" onclick="saveLocalExercise('type');"><img src="img/save.png" alt="save"/></a>
+  -->
+        </div>
+        <!--<a id='menubadge'  style="float:right;" href="#settings" class='menuButton'></a>-->
+      <!--  <a id="menuReset" class="button" style="float:right;margin-left:5px;font-size:10px;"
+           onclick="restCurrentPage('type');">
+            Reset
+        </a>
+        <a class="button" style="float:right;">
+            <span id="typAnsResult"></span><span id="questTotal"></span>
+        </a>
+           <a class="button" style="float:right;margin-right:5px;" onclick="saveExercise('type');">Save</a>
+
+        <a id='menuBackBtn' style="float:left;font-size:10px;" onclick="gotoCurrentPage();"
+           class='button previous'>Back</a>
+        <a class="button" style="float:left;margin-right:10px;margin-left:5px;font-size:10px;">
+            <span id="typeAttempt">Try:</span><span id="noAttempts"></span>
+        </a>
+
+        <a class="button" style="float:left;font-size:10px;margin-left:-5px;">
+            <span id="totalTime"></span>
+        </a>-->
+
+
+    </header>
+
+
+</div>
+<!--****************************-->
+<div title="Shuffle" id="shuffle" class="gray-bg panel" data-load="shuffleloadedPanel" data-unload="unloadedShuffleAns"
+     data-tab="navbar_shuffle">
+    <header>
+        <!-- <a id='menubadge'  style="float:right;" href="#settings" class='menuButton'></a>-->
+      <!--  <a id="menuReset" class="button" style="float:right;margin-left:10px;" onclick="restCurrentPage('shuffle');">
+            Reset
+        </a>
+
+        <a class="button" style="float:right;" class="icon home">
+            <span id="shuffleResult"></span><span id="shuffleQuestTotal"></span>
+        </a>
+        <a id='menuBackBtn' style="float:left;" onclick="gotoCurrentPage();" class='button previous'>Back</a>
+        <a class="button" style="float:left;margin-right:10px;">
+            <span>Attempts:</span><span id="shuffleNoAttempts"></span>
+        </a>
+        <a class="button" style="float:left;">
+            <span id="shuffletotalTime"></span>
+        </a>-->
+         <h1 id="shuffleExerciseName"></h1>
+        <!--<a id='menubadge'  style="float:right;" href="#settings" class='menuButton'></a>-->
+        <div class="control-left">
+          <a id='menuBackBtn' onclick="saveExerciseonBack('shuffle');"><img  src="img/back.png" alt="menu"/></a>
+        </div>
+        <div class="fl" id="shuffleLeftHdrEditCtrl">
+          <a class="tries fl mr20">
+             <div class="noAttempts"> <span id="shuffleNoAttempts"></span></div>
+          </a>
+           <a class="t-time fl">
+            &nbsp; &nbsp; &nbsp;    <span id="shuffletotalTime"></span>
+          </a> 
+       <!--   <a id="menuReset" class="bp-reset fl ml30" onclick="restCurrentPage('shuffle');">
+            <img src="img/reset.png" alt="reset"/>
+          </a>-->
+        </div>
+        <div class="fr">
+          <a class="bp-qtotal fl" id="shuffleRightHdrEditCtrl">
+              <span id="shuffleResult"></span><span id="shuffleQuestTotal"></span>
+          </a>
+         <!--  <a id="" class="bp-upload fl mr20" onclick="saveExercise('shuffle');"><img src="img/upload.png" alt="upload"/></a>
+             -->       <!--  <a id="" class="bp-upload fl mr20" onclick="saveLocalExercise('shuffle');"><img src="img/upload.png" alt="upload"/></a>
+        -->      <a  id="ClickMe"  onclick='ClickMe();' class="bp-upload fl mr20"  data-rel="popup"> <img src="img/Feedback.png" alt="Feedback"/></a>
+    
+          
+        </div>
+    </header>
+</div>
+<!--END SHUFFLE-->
+ 
+<!--SELECT-->
+<div title="Multi Select" id="multiSelect" class="gray-bg panel" data-load="multiSelloadedPanel"
+     data-unload="unloadedMultiSelAns" data-tab="navbar_multiSel">
+    <header>
+        <!-- <a id='menubadge'  style="float:right;" href="#settings" class='menuButton'></a>
+        <h1></h1> -->
+       <!-- <a id="menuReset" class="button" style="float:right;margin-left:10px;" onclick="restCurrentPage('pick');">
+            Reset
+        </a>
+        <a class="button" style="float:right;">
+            <span id="multiSelectResult"></span><span id="mulQuestTotal"></span>
+        </a>
+        <a id='menuBackBtn' style="float:left;" onclick="gotoCurrentPage();" class='button previous'>Back</a>
+        <a class="button" style="float:left;margin-right:10px;margin-left:5px;">
+            <span id="multiAttempt">Attempts:</span><span id="multiNoAttempts"></span>
+        </a>
+        <a class="button" style="float:left;">
+            <span id="multitotalTime"></span>
+        </a>-->
+         <h1 id="selectExerciseName"></h1>
+        <!--<a id='menubadge'  style="float:right;" href="#settings" class='menuButton'></a>-->
+        <div class="control-left">
+          <a id='menuBackBtn' onclick="saveExerciseonBack('multiSelect');"><img  src="img/back.png" alt="menu"/></a>
+        </div>
+        <div class="fl" id="selectleLeftHdrEditCtrl">
+          <a class="tries fl mr20">
+             <div class="noAttempts"> <span id="multiNoAttempts"></span></div>
+          </a>
+           <a class="t-time fl">
+            &nbsp; &nbsp; &nbsp;    <span id="multitotalTime"></span>
+          </a>
+      <!--    <a id="menuReset" class="bp-reset fl ml30" onclick="restCurrentPage('pick');">
+            <img src="img/reset.png" alt="reset"/>
+          </a>-->
+        </div>
+        <div class="fr">
+          <a class="bp-qtotal fl" id="selectleRightHdrEditCtrl">
+              <span id="multiSelectResult"></span><span id="mulQuestTotal"></span>
+          </a>
+        <!--   <a id="" class="bp-upload fl mr20" onclick="saveExercise('multiSelect');"><img src="img/upload.png" alt="upload"/></a>  -->
+          <!-- class="ui-btn ui-corner-all ui-shadow ui-btn-inline" <a id="" class="bp-upload fl mr20" onclick="saveLocalExercise('multiSelect');"><img src="img/upload.png" alt="upload"/></a>
+        -->      <a  id="ClickMe"   onclick='ClickMe();' class="bp-upload fl mr20"  data-rel="popup"> <img src="img/Feedback.png" alt="Feedback"/></a>
+    
+        </div>
+    </header>
+</div>
+<!--END SELECT-->
+ 
+<!--RAMDOM-->
+<div title="Random Select" id="randomSelect" class="gray-bg panel" data-load="randSelloadedPanel" data-unload="unloadedRandSel"
+     data-tab="navbar_randSel">
+    <header>
+        <!-- <a id='menubadge'  style="float:right;" href="#settings" class='menuButton'></a> -->
+       <!-- <a id="menuReset" class="button" style="float:right;margin-left:5px;font-size:10px;"
+           onclick="restCurrentPage('random');">
+            Reset
+        </a>
+
+        <h1><span id="randAnswerDiv" style="color:white;border:2px solid blue; width:auto;"></span></h1>
+
+        <a class="button" style="float:right;font-size:10px;">
+            <span id="randSelectResult"></span><span id="randQuestTotal"></span>
+        </a>
+        <a id='menuBackBtn' style="float:left;font-size:10px;" onclick="gotoCurrentPage();"
+           class='button previous'>Back</a>
+        <a class="button" style="float:left;margin-right:10px;font-size:10px;margin-left:5px;">
+            <span id="randomAttempt">Attempts:</span><span id="randomNoAttempts"></span>
+        </a>
+        <a class="button" style="float:left;font-size:10px;">
+            <span id="randomtotalTime"></span>
+        </a>-->
+        <!--  Priya updated color from white to black and added background color yellow May2014 -->
+         <h1><span id="randAnswerDiv" onclick="tapRandomAnswerDiv()"  style="color:black;border:2px solid yellow;background-color:yellow;width:auto;"></span></h1>
+        <!--<a id='menubadge'  style="float:right;" href="#settings" class='menuButton'></a>-->
+        <div class="control-left">
+         <a id='menuBackBtn' onclick="saveExerciseonBack('randomSelect');"><img  src="img/back.png" alt="menu"/></a>
+        </div>
+        <div class="fl" id="randomleLeftHdrEditCtrl">
+          <a class="tries fl mr20">
+             <div class="noAttempts"> <span id="randomNoAttempts"></span></div>
+          </a>
+          <a class="t-time fl">
+          &nbsp; &nbsp; &nbsp;      <span id="randomtotalTime"></span>
+          </a>
+      <!--    <a id="menuReset" class="bp-reset fl ml30" onclick="restCurrentPage('random');">
+            <img src="img/reset.png" alt="reset"/>
+          </a> -->
+        </div>
+        <div class="fr">
+          <a class="bp-qtotal fl" id="randomleRightHdrEditCtrl">
+              <span id="randSelectResult"></span><span id="randQuestTotal"></span>
+          </a>
+         <!--   <a id="" class="bp-upload fl mr20" onclick="saveExercise('randomSelect');"><img src="img/upload.png" alt="upload"/></a> -->
+            <!--  <a id="" class="bp-upload fl mr20" onclick="saveLocalExercise('randomSelect');"><img src="img/upload.png" alt="upload"/></a>
+        -->       <a  id="ClickMe"  class="bp-upload fl mr20" onclick='ClickMe();'  data-rel="popup"> <img src="img/Feedback.png" alt="Write"/></a>
+    
+        </div>
+    </header>
+
+</div>
+<!--END RAMDOM-->
+ 
+<!--ANSWER-->
+<div  id="showAnswer" class="gray-bg panel" data-load="showAnsloadedPanel" data-tab="navbar_showAns">
+    <header>
+      <!-- gotoCurrentPage(); -->
+        <div class="control-left">
+          <a id='menuBackBtn' onclick="saveExerciseonBack('randomSelect');"><img src="img/back.png" alt="menu"/></a>
+        </div>
+        <h1 id="ansExerciseName"></h1>
+    </header>
+    <!--END ANSWER-->
+    <!--<div title="Shuffle" id="af" class="panel" data-nav="menu_AppFramework" data-load="loadedPanel" data-header="testheader">-->
+    <!-- <header><span>This is an inline header in a panel.  Below is an inline footer</span></header>-->
+    <!-- <h2 class='expanded' onclick='showHide(this,"AppFramework_info");'>AppFramework</h2> -->
+</div>
+<div title="Settings" id="settings" class="panel" data-load="setSettings" data-footer="home_footer">
+    <header>
+        <div class="control-left">
+            <a href="#" onclick="gotoCurrentPage('settings');"><img src="img/back.png" alt="menu"/></a>
+        </div>
+        <!--<a id='menuback'  style="float:left;" onclick="gotoCurrentPage();"  class='button'>back</a>-->
+ 
+        <h1 class="header-logo"><img src="img/mybackpack_logo.png" alt="mybackpack logo"/></h1>
+ 
+   <!--      <div class="control-right">
+            <a href="#localFolder"><img src="img/localfolder.png" alt="home"/></a>
+            <a href="#settings"><img src="img/settings.png" alt="menu"/></a>
+        </div>  -->
+ 
+    </header>
+ 
+    <div class="note-header">
+        <h1 class="headerpadding">Version 0.0.3</h1>
+    </div>
+    <!-- <ul id="fileList" class="list">
+     <li id="questionOptionSettings">
+            <div class="grid">
+                <div class="col2">Selection</div>
+                <div class="col2"><select id="selQuestionOption" onchange="resetSelectCtrl()"></select>
+                </div>
+            </div>
+        </li>
+        
+        <li>
+            <div class="grid">
+                <div class="col2">Version</div>
+                <div class="col2" style="float:left;"><span>0.1.3</span></div>
+            </div>
+        </li>
+        <li>
+            <div class="grid">
+                <div class="col2">Logged In As</div>
+                <div class="col2" style="float:left;"><span id="logedUserName"></span></div>
+            </div>
+        </li>
+    </ul> -->   
+</div>
+
+
+</div>
+
+
+
+<!--  Main Div dont delete -->
+<!-- ***************************** -->
+<!-- navbar -->
+
+<div id="navbar" style='margin: 0;float:left; background-image:url(img/header_bg.png);'>
+    <!-- <a href="#home" id='navbar_home' class='icon home'>Home</a> -->
+    <a  id='navbar_main' onClick="navigateToTypeView()" class='bp-btn'>Text</a>
+    <a  id='navbar_shuffle' class="bp-btn" onClick="navigateToShuffleView()">Shuffle</a>
+    <a  id='navbar_multiSel' onClick="navigateToSelectView()" class="bp-btn">Select</a>
+    <a  id='navbar_randSel' onClick="navigateToRandomView()" class="bp-btn">Random</a>
+     <a id='navbar_showAns' class="bp-btn" onclick='showAnswer();navigateToAnserView()'>Answer</a>  
+
+
+</div>
+
+<footer id="home_footer" style="background-image:url(img/header_bg.png);">
+    <!--<a href='#about' class='icon info'>About</a>-->
+</footer>
+
+<footer id="smartPaper_footer" style="background-image:url(img/header_bg.png);">
+    <!--<a href='#about' class='icon info'>About</a>-->
+</footer>
+
+<footer id="barreport_footer" style="background-image:url(img/header_bg.png);">
+  
+    <a  id='navbar_mainreport' onClick="loadmainUI()" class='bp-btn'>Text</a>
+    <a  id='navbar_shufflereport' onClick="loadshuffleUI()" class="bp-btn" >Shuffle</a>
+    <a  id='navbar_selectreport' onClick="loadselectUI()" class="bp-btn">Select</a>
+    <a  id='navbar_randSelreport' onClick="loadrandomUI()" class="bp-btn">Random</a>
+
+</footer>
+
+<footer id="barspreport_footer" style="background-image:url(img/header_bg.png);">
+  
+    <a  id='navbar_spreportall' onClick="loadspreport_all()" class='bp-btn'>All</a>
+    <a  id='navbar_spreporttop4' onClick="loadspreport_top()" class="bp-btn" >Top 4</a>
+    <a  id='navbar_spreportbottom4' onClick="loadspreport_bottom()" class="bp-btn">Bottom 4</a>
+   
+</footer>
+
+</div>
+<script defer="defer">
+
+</script>
+</body>
+</html>
